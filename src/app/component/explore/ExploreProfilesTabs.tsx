@@ -23,7 +23,7 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
 
   return (
     <motion.section 
-      className="rounded-2xl border bg-gray-50 px-4 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto"
+      className="rounded-2xl border bg-gray-50 px-4 md:px-0 py-4 sm:py-6 max-w-7xl mx-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

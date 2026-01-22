@@ -9,7 +9,7 @@ const AboutPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <motion.section 
-        className="relative min-h-[300px] sm:min-h-[400px] w-full overflow-hidden bg-gradient-to-r from-pink-50 to-orange-50"
+        className="relative min-h-[300px] sm:min-h-[400px] w-full overflow-hidden bg-linear-to-r from-pink-50 to-orange-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -40,33 +40,33 @@ const AboutPage = () => {
       {/* Mission Section */}
       <motion.section 
         className="bg-white py-12 sm:py-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-8 sm:gap-12 md:grid-cols-2 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
               <motion.h2 
                 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-gray-900"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
               >
                 Our Mission
               </motion.h2>
               <motion.p 
                 className="mb-3 sm:mb-4 text-base sm:text-lg leading-relaxed text-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
                 At Shaadi.com, our mission is to use technology for good and bring back 
@@ -75,9 +75,9 @@ const AboutPage = () => {
               </motion.p>
               <motion.p 
                 className="text-base sm:text-lg leading-relaxed text-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
                 viewport={{ once: true }}
               >
                 We're committed to making the journey of finding love safe, secure, 
@@ -86,9 +86,9 @@ const AboutPage = () => {
             </motion.div>
             <motion.div 
               className="relative h-64 sm:h-80 w-full"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
               {/* Mobile & Medium Background */}
@@ -114,16 +114,16 @@ const AboutPage = () => {
       {/* Stats Section */}
       <motion.section 
         className="bg-gray-50 py-12 sm:py-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.h2 
             className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
@@ -145,10 +145,10 @@ const AboutPage = () => {
               <motion.div 
                 key={index}
                 className="rounded-lg bg-white p-4 sm:p-6 shadow-sm"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
                 viewport={{ once: true }}
               >
                 <motion.div 
@@ -168,30 +168,12 @@ const AboutPage = () => {
       </motion.section>
 
       {/* Values Section */}
-      <motion.section 
-        className="bg-white py-12 sm:py-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <section className="bg-white py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.h2 
-            className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
             Our Core Values
-          </motion.h2>
-          <motion.div 
-            className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ staggerChildren: 0.2, delayChildren: 0.3 }}
-            viewport={{ once: true }}
-          >
+          </h2>
+          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: "/svg/bluetick.svg",
@@ -209,26 +191,12 @@ const AboutPage = () => {
                 description: "We're so confident in our service that we offer a money-back guarantee."
               }
             ].map((value, index) => (
-              <motion.div 
+              <div 
                 key={index}
                 className={`text-center ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
               >
-                <motion.div 
-                  className="mb-4 flex justify-center"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1, type: "spring", stiffness: 200 }}
-                  viewport={{ once: true }}
-                >
-                  <motion.div 
-                    className="rounded-full bg-pink-100 p-3 sm:p-4"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                <div className="mb-4 flex justify-center">
+                  <div className="rounded-full bg-pink-100 p-3 sm:p-4 hover:scale-110 hover:rotate-1 transition-transform duration-300">
                     <Image
                       src={value.icon}
                       alt={value.title}
@@ -236,31 +204,19 @@ const AboutPage = () => {
                       height={32}
                       className="sm:w-10 sm:h-10"
                     />
-                  </motion.div>
-                </motion.div>
-                <motion.h3 
-                  className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                  </div>
+                </div>
+                <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">
                   {value.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-sm sm:text-base text-gray-700"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                </h3>
+                <p className="text-sm sm:text-base text-gray-700">
                   {value.description}
-                </motion.p>
-              </motion.div>
+                </p>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Founder Message */}
       <FounderMessage />
@@ -268,16 +224,16 @@ const AboutPage = () => {
       {/* Journey Section */}
       <motion.section 
         className="bg-white py-12 sm:py-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.h2 
             className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
@@ -307,16 +263,16 @@ const AboutPage = () => {
               <motion.div 
                 key={index}
                 className="rounded-lg border bg-gray-50 p-6 sm:p-8"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
                 viewport={{ once: true }}
               >
                 <motion.h3 
                   className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: true }}
                 >
@@ -324,8 +280,8 @@ const AboutPage = () => {
                 </motion.h3>
                 <motion.p 
                   className="text-sm sm:text-base text-gray-700 leading-relaxed"
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                   viewport={{ once: true }}
                 >
@@ -339,17 +295,17 @@ const AboutPage = () => {
 
       {/* CTA Section */}
       <motion.section 
-        className="bg-gradient-to-r from-pink-500 to-orange-500 py-12 sm:py-16 text-white"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="bg-lineear-to-r from-pink-500 to-orange-500 py-12 sm:py-16 text-white"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <motion.h2 
             className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
@@ -357,8 +313,8 @@ const AboutPage = () => {
           </motion.h2>
           <motion.p 
             className="mb-6 sm:mb-8 text-base sm:text-lg lg:text-xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
@@ -369,7 +325,7 @@ const AboutPage = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             viewport={{ once: true }}
           >

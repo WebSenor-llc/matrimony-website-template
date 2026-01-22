@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -13,6 +13,8 @@ const Header = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,14 +59,37 @@ const Header = () => {
         if (isSignUpModalOpen) {
           setIsSignUpModalOpen(false);
         }
+        if (isMobileMenuOpen) {
+          setIsMobileMenuOpen(false);
+        }
       }
     };
 
-    if (isLoginModalOpen || isSignUpModalOpen) {
+    if (isLoginModalOpen || isSignUpModalOpen || isMobileMenuOpen) {
       document.addEventListener('keydown', handleEscapeKey);
       return () => document.removeEventListener('keydown', handleEscapeKey);
     }
-  }, [isLoginModalOpen, isSignUpModalOpen]);
+  }, [isLoginModalOpen, isSignUpModalOpen, isMobileMenuOpen]);
+
+  // Handle click outside mobile menu to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        menuButtonRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isMobileMenuOpen]);
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
@@ -135,6 +160,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
+          ref={menuButtonRef}
           onClick={toggleMobileMenu}
           className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
           aria-label="Toggle mobile menu"
@@ -157,9 +183,12 @@ const Header = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div className={`lg:hidden border-t bg-white overflow-hidden transition-all duration-300 ease-in-out ${
-        isMobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-      }`}>
+      <div 
+        ref={mobileMenuRef}
+        className={`lg:hidden border-t bg-white overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
         <nav className="flex flex-col px-4 py-4 space-y-4">
           <Link
             href="/about"
