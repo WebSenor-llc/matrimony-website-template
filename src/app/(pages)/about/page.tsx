@@ -1,42 +1,96 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
+import FounderMessage from "../../component/home/FounderMessage";
 
 const AboutPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[300px] sm:min-h-[400px] w-full overflow-hidden bg-linear-to-r from-pink-50 to-orange-50">
+      <motion.section 
+        className="relative min-h-[300px] sm:min-h-[400px] w-full overflow-hidden bg-gradient-to-r from-pink-50 to-orange-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="relative z-10 mx-auto flex max-w-6xl items-center px-4 sm:px-6 py-12 sm:py-20">
           <div className="max-w-3xl">
-            <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
+            <motion.h1 
+              className="mb-4 sm:mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-gray-900"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               About Shaadi.com
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700">
+            </motion.h1>
+            <motion.p 
+              className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               For over two decades, we've been India's most trusted matrimonial platform, 
               bringing together millions of hearts and creating countless success stories.
-            </p>
+            </motion.p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Mission Section */}
-      <section className="bg-white py-12 sm:py-16">
+      <motion.section 
+        className="bg-white py-12 sm:py-16"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-8 sm:gap-12 md:grid-cols-2 items-center">
-            <div>
-              <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-gray-900">Our Mission</h2>
-              <p className="mb-3 sm:mb-4 text-base sm:text-lg leading-relaxed text-gray-700">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <motion.h2 
+                className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-gray-900"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                Our Mission
+              </motion.h2>
+              <motion.p 
+                className="mb-3 sm:mb-4 text-base sm:text-lg leading-relaxed text-gray-700"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
                 At Shaadi.com, our mission is to use technology for good and bring back 
                 deep and meaningful relationships. We believe that everyone deserves to 
                 find their perfect life partner.
-              </p>
-              <p className="text-base sm:text-lg leading-relaxed text-gray-700">
+              </motion.p>
+              <motion.p 
+                className="text-base sm:text-lg leading-relaxed text-gray-700"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+              >
                 We're committed to making the journey of finding love safe, secure, 
                 and successful for millions of people worldwide.
-              </p>
-            </div>
-            <div className="relative h-64 sm:h-80 w-full">
+              </motion.p>
+            </motion.div>
+            <motion.div 
+              className="relative h-64 sm:h-80 w-full"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
               {/* Mobile & Medium Background */}
               <Image
                 src="/images/mobile-banner-bg.jpg"
@@ -52,182 +106,277 @@ const AboutPage = () => {
                 fill
                 className="rounded-lg object-cover hidden lg:block"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Stats Section */}
-      <section className="bg-gray-50 py-12 sm:py-16">
+      <motion.section 
+        className="bg-gray-50 py-12 sm:py-16"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
+          <motion.h2 
+            className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             Our Impact in Numbers
-          </h2>
-          <div className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-2 md:grid-cols-4 text-center">
-            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
-              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">80L+</div>
-              <div className="text-sm sm:text-base text-gray-700">Success Stories</div>
-            </div>
-            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
-              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">35L+</div>
-              <div className="text-sm sm:text-base text-gray-700">Verified Profiles</div>
-            </div>
-            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
-              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">20+</div>
-              <div className="text-sm sm:text-base text-gray-700">Years of Trust</div>
-            </div>
-            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
-              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">100+</div>
-              <div className="text-sm sm:text-base text-gray-700">Countries</div>
-            </div>
-          </div>
+          </motion.h2>
+          <motion.div 
+            className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-2 md:grid-cols-4 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.1, delayChildren: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {[
+              { number: "80L+", label: "Success Stories" },
+              { number: "35L+", label: "Verified Profiles" },
+              { number: "20+", label: "Years of Trust" },
+              { number: "100+", label: "Countries" }
+            ].map((stat, index) => (
+              <motion.div 
+                key={index}
+                className="rounded-lg bg-white p-4 sm:p-6 shadow-sm"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                viewport={{ once: true }}
+              >
+                <motion.div 
+                  className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1, type: "spring", stiffness: 200 }}
+                  viewport={{ once: true }}
+                >
+                  {stat.number}
+                </motion.div>
+                <div className="text-sm sm:text-base text-gray-700">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Values Section */}
-      <section className="bg-white py-12 sm:py-16">
+      <motion.section 
+        className="bg-white py-12 sm:py-16"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
+          <motion.h2 
+            className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             Our Core Values
-          </h2>
-          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
-                  <Image
-                    src="/svg/bluetick.svg"
-                    alt="Trust"
-                    width={32}
-                    height={32}
-                    className="sm:w-10 sm:h-10"
-                  />
-                </div>
-              </div>
-              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Trust & Safety</h3>
-              <p className="text-sm sm:text-base text-gray-700">
-                Every profile is verified to ensure authenticity and safety for all our members.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
-                  <Image
-                    src="/svg/matchmaking.svg"
-                    alt="Innovation"
-                    width={32}
-                    height={32}
-                    className="sm:w-10 sm:h-10"
-                  />
-                </div>
-              </div>
-              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Innovation</h3>
-              <p className="text-sm sm:text-base text-gray-700">
-                We use cutting-edge AI and technology to provide the most relevant matches.
-              </p>
-            </div>
-            <div className="text-center sm:col-span-2 lg:col-span-1">
-              <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
-                  <Image
-                    src="/svg/moneyback.svg"
-                    alt="Success"
-                    width={32}
-                    height={32}
-                    className="sm:w-10 sm:h-10"
-                  />
-                </div>
-              </div>
-              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Success Guarantee</h3>
-              <p className="text-sm sm:text-base text-gray-700">
-                We're so confident in our service that we offer a money-back guarantee.
-              </p>
-            </div>
-          </div>
+          </motion.h2>
+          <motion.div 
+            className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.2, delayChildren: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                icon: "/svg/bluetick.svg",
+                title: "Trust & Safety",
+                description: "Every profile is verified to ensure authenticity and safety for all our members."
+              },
+              {
+                icon: "/svg/matchmaking.svg",
+                title: "Innovation",
+                description: "We use cutting-edge AI and technology to provide the most relevant matches."
+              },
+              {
+                icon: "/svg/moneyback.svg",
+                title: "Success Guarantee",
+                description: "We're so confident in our service that we offer a money-back guarantee."
+              }
+            ].map((value, index) => (
+              <motion.div 
+                key={index}
+                className={`text-center ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <motion.div 
+                  className="mb-4 flex justify-center"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1, type: "spring", stiffness: 200 }}
+                  viewport={{ once: true }}
+                >
+                  <motion.div 
+                    className="rounded-full bg-pink-100 p-3 sm:p-4"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Image
+                      src={value.icon}
+                      alt={value.title}
+                      width={32}
+                      height={32}
+                      className="sm:w-10 sm:h-10"
+                    />
+                  </motion.div>
+                </motion.div>
+                <motion.h3 
+                  className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {value.title}
+                </motion.h3>
+                <motion.p 
+                  className="text-sm sm:text-base text-gray-700"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {value.description}
+                </motion.p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Founder Message */}
-      <section className="relative min-h-[400px] sm:min-h-[520px] w-full overflow-hidden bg-[#f7efe6]">
-        <Image
-          src="/images/founder-bg.jpeg"
-          alt="Background"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="relative z-10 mx-auto flex max-w-6xl items-end px-4 sm:px-6 pt-12 sm:pt-20">
-          <div className="max-w-xl pb-8 sm:pb-16">
-            <div className="mb-4 sm:mb-6 text-5xl sm:text-6xl lg:text-7xl font-serif leading-none text-gray-300">
-              "
-            </div>
-            <p className="mb-4 sm:mb-6 text-2xl sm:text-3xl lg:text-4xl font-semibold leading-relaxed text-gray-900">
-              At Shaadi.com, it is our life's mission to use technology for good and
-              bring back deep and meaningful relationships.
-            </p>
-            <p className="text-sm font-medium text-gray-600">
-              – Anupam Mittal, Founder & CEO
-            </p>
-          </div>
-          <div className="absolute bottom-0 right-4 sm:right-10 hidden md:block h-[300px] w-[300px] sm:h-[380px] sm:w-[380px] lg:h-[460px] lg:w-[460px]">
-            <Image
-              src="/images/founder.png"
-              alt="Founder"
-              fill
-              className="object-contain object-bottom"
-            />
-          </div>
-        </div>
-      </section>
+      <FounderMessage />
 
       {/* Journey Section */}
-      <section className="bg-white py-12 sm:py-16">
+      <motion.section 
+        className="bg-white py-12 sm:py-16"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
+          <motion.h2 
+            className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             Our Journey
-          </h2>
-          <div className="space-y-6 sm:space-y-8">
-            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
-              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">The Beginning</h3>
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                Founded with the vision of revolutionizing the way people find life partners, 
-                Shaadi.com started as a simple idea to connect hearts across the globe. 
-                What began as a small startup has now become India's largest matrimonial platform.
-              </p>
-            </div>
-            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
-              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">Innovation & Growth</h3>
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                Over the years, we've continuously innovated with features like AI-powered matching, 
-                video profiles, and advanced privacy controls. Our commitment to technology and 
-                user experience has helped millions find their perfect match.
-              </p>
-            </div>
-            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
-              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">Global Presence</h3>
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                Today, Shaadi.com serves members across 100+ countries, making it the world's 
-                largest matrimonial service. We continue to expand our reach while maintaining 
-                our core values of trust, authenticity, and success.
-              </p>
-            </div>
-          </div>
+          </motion.h2>
+          <motion.div 
+            className="space-y-6 sm:space-y-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.2, delayChildren: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                title: "The Beginning",
+                content: "Founded with the vision of revolutionizing the way people find life partners, Shaadi.com started as a simple idea to connect hearts across the globe. What began as a small startup has now become India's largest matrimonial platform."
+              },
+              {
+                title: "Innovation & Growth",
+                content: "Over the years, we've continuously innovated with features like AI-powered matching, video profiles, and advanced privacy controls. Our commitment to technology and user experience has helped millions find their perfect match."
+              },
+              {
+                title: "Global Presence",
+                content: "Today, Shaadi.com serves members across 100+ countries, making it the world's largest matrimonial service. We continue to expand our reach while maintaining our core values of trust, authenticity, and success."
+              }
+            ].map((journey, index) => (
+              <motion.div 
+                key={index}
+                className="rounded-lg border bg-gray-50 p-6 sm:p-8"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+                viewport={{ once: true }}
+              >
+                <motion.h3 
+                  className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {journey.title}
+                </motion.h3>
+                <motion.p 
+                  className="text-sm sm:text-base text-gray-700 leading-relaxed"
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {journey.content}
+                </motion.p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section className="bg-linear-to-r from-pink-500 to-orange-500 py-12 sm:py-16 text-white">
+      <motion.section 
+        className="bg-gradient-to-r from-pink-500 to-orange-500 py-12 sm:py-16 text-white"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-          <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold">
+          <motion.h2 
+            className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             Ready to Find Your Perfect Match?
-          </h2>
-          <p className="mb-6 sm:mb-8 text-base sm:text-lg lg:text-xl">
+          </motion.h2>
+          <motion.p 
+            className="mb-6 sm:mb-8 text-base sm:text-lg lg:text-xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
             Join millions of happy couples who found love on Shaadi.com
-          </p>
-          <button className="rounded-lg bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg font-semibold text-pink-600 transition-colors hover:bg-gray-100">
+          </motion.p>
+          <motion.button 
+            className="rounded-lg bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg font-semibold text-pink-600 transition-colors hover:bg-gray-100"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            viewport={{ once: true }}
+          >
             Start Your Journey Today
-          </button>
+          </motion.button>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

@@ -81,14 +81,14 @@ const SuccessStories = () => {
           {/* Left Content */}
           <motion.div 
             className="text-center lg:text-left"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             <motion.h2 
               className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-semibold text-gray-900"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
@@ -97,7 +97,7 @@ const SuccessStories = () => {
             </motion.h2>
             <motion.p 
               className="mb-6 sm:mb-8 text-gray-600 text-sm sm:text-base"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
@@ -121,8 +121,8 @@ const SuccessStories = () => {
           {/* Cards */}
           <motion.div 
             className="relative lg:col-span-2"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
@@ -130,9 +130,9 @@ const SuccessStories = () => {
               <motion.div 
                 key={currentPage}
                 className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4 }}
               >
                 {currentStories.map((story, i) => (
@@ -150,7 +150,7 @@ const SuccessStories = () => {
                     >
 
                       {/* Image */}
-                      <div className="relative h-40 sm:h-48 overflow-hidden">
+                      <div className="relative h-48 sm:h-56 overflow-hidden">
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
@@ -199,7 +199,7 @@ const SuccessStories = () => {
             {/* Navigation */}
             <motion.div 
               className="mt-4 sm:mt-6 flex justify-center lg:justify-end gap-3 sm:gap-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}

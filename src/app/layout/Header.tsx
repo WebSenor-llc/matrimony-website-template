@@ -24,8 +24,51 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Disable body scroll when modals are open
+  useEffect(() => {
+    if (isLoginModalOpen || isSignUpModalOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Disable scrolling
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Re-enable scrolling and restore position
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isLoginModalOpen, isSignUpModalOpen]);
+
+  // Handle Escape key to close modals
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (isLoginModalOpen) {
+          setIsLoginModalOpen(false);
+        }
+        if (isSignUpModalOpen) {
+          setIsSignUpModalOpen(false);
+        }
+      }
+    };
+
+    if (isLoginModalOpen || isSignUpModalOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+      return () => document.removeEventListener('keydown', handleEscapeKey);
+    }
+  }, [isLoginModalOpen, isSignUpModalOpen]);
+
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
+    setIsMobileMenuOpen(false); // Close mobile menu when opening modal
   };
 
   const handleCloseModal = () => {
@@ -33,6 +76,7 @@ const Header = () => {
   };
 
   const handleOpenSignUp = () => {
+    setIsLoginModalOpen(false); // Close login modal
     setIsSignUpModalOpen(true);
   };
 

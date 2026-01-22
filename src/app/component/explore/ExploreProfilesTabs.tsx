@@ -24,18 +24,16 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
   return (
     <motion.section 
       className="rounded-2xl border bg-gray-50 px-4 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true, amount: 0.2 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Title */}
       <motion.h2 
         className="mb-4 sm:mb-6 text-lg sm:text-xl font-semibold text-gray-900"
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
         {title}
       </motion.h2>
@@ -71,27 +69,24 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
       ) : (
         /* Normal tabs for other sections */
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
         >
           <Tabs defaultValue={tabs[0].key} className="w-full">
             {/* Tabs Header */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
             >
               <TabsList className="mb-4 sm:mb-6 flex w-full justify-start gap-3 sm:gap-6 border-b bg-transparent p-0 overflow-x-auto">
                 {tabs.map((tab, index) => (
                   <motion.div
                     key={tab?.key}
-                    initial={{ opacity: 0, y: -10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.5 + (index * 0.1) }}
-                    viewport={{ once: true }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
                     <TabsTrigger
                       value={tab?.key}
