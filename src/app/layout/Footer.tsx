@@ -8,6 +8,7 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 /* -------------------- DATA CONFIG -------------------- */
 
@@ -71,88 +72,193 @@ const SOCIAL_LINKS = [
 
 const Footer = () => {
   return (
-    <div>
+    <footer>
       {/* Top Section */}
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+      <motion.div 
+        className="mx-auto max-w-7xl px-4 py-10"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.div 
+          className="grid grid-cols-2 gap-8 lg:grid-cols-5"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+          viewport={{ once: true }}
+        >
+
           {/* Link Columns */}
-          {FOOTER_LINKS.map((section) => (
-            <nav key={section.title}>
-              <h4 className="mb-4 text-lg font-bold text-gray-900">
+          {FOOTER_LINKS.map((section, sectionIndex) => (
+            <motion.nav 
+              key={section.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: sectionIndex * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <motion.h4 
+                className="mb-3 text-base font-bold text-gray-900"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: sectionIndex * 0.1 + 0.2 }}
+                viewport={{ once: true }}
+              >
                 {section.title}
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                {section.links.map((link) => (
-                  <li key={link}>
-                    <Link
-                      href="#"
-                      className=" hover:text-gray-900 hover:underline"
+              </motion.h4>
+              <motion.ul 
+                className="space-y-2 text-sm text-gray-600"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ staggerChildren: 0.05, delayChildren: sectionIndex * 0.1 + 0.3 }}
+                viewport={{ once: true }}
+              >
+                {section.links.map((link, linkIndex) => (
+                  <motion.li 
+                    key={link}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: linkIndex * 0.03 }}
+                    viewport={{ once: true }}
+                  >
+                    <motion.div
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      {link}
-                    </Link>
-                  </li>
+                      <Link
+                        href="#"
+                        className="hover:text-gray-900 hover:underline transition-colors duration-200"
+                      >
+                        {link}
+                      </Link>
+                    </motion.div>
+                  </motion.li>
                 ))}
-              </ul>
-            </nav>
+              </motion.ul>
+            </motion.nav>
           ))}
 
           {/* Social + App */}
-          <div>
-            <h4 className="mb-4 text-md font-bold text-gray-900">
+          <motion.div 
+            className="col-span-2 lg:col-span-1"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <motion.h4 
+              className="mb-4 text-base font-bold text-gray-900"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
               Find us on:
-            </h4>
+            </motion.h4>
 
-            <div className="mb-6 flex gap-4 text-gray-600">
-              {SOCIAL_LINKS.map(({ icon: Icon, label }) => (
-                <Link
+            <motion.div 
+              className="mb-6 flex flex-wrap gap-3 text-gray-600"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1, delayChildren: 0.6 }}
+              viewport={{ once: true }}
+            >
+              {SOCIAL_LINKS.map(({ icon: Icon, label }, index) => (
+                <motion.div
                   key={label}
-                  href="#"
-                  aria-label={label}
-                  className="transition-colors hover:text-gray-900 border border-black/20 p-2 rounded-md transition-transform duration-300 hover:scale-115 hover:border-black"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                 >
-                  <Icon size={20} />
-                </Link>
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Link
+                      href="#"
+                      aria-label={label}
+                      className="rounded-md border border-black/20 p-2 transition-all duration-300 hover:border-black hover:text-gray-900 block"
+                    >
+                      <Icon size={18} />
+                    </Link>
+                  </motion.div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <h4 className="mb-3 text-sm font-semibold text-gray-900">
+            <motion.h4 
+              className="mb-3 text-sm font-semibold text-gray-900"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              viewport={{ once: true }}
+            >
               Get the Shaadi App
-            </h4>
+            </motion.h4>
 
-            <div className="flex gap-3">
-              <img
+            <motion.div 
+              className="flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              viewport={{ once: true }}
+            >
+              <motion.img
                 src="/images/AppleStore.png"
                 alt="Download on the App Store"
-                className="h-10 cursor-pointer transition-transform duration-300 hover:scale-105"
+                className="h-10 cursor-pointer"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
               />
-              <img
+              <motion.img
                 src="/images/google-play.png"
                 alt="Get it on Google Play"
-                className="h-10 cursor-pointer transition-transform duration-300 hover:scale-105"
+                className="h-10 cursor-pointer"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
               />
-            </div>
+            </motion.div>
 
-            <p className="mt-4 text-xs leading-relaxed text-gray-500">
+            <motion.p 
+              className="mt-4 text-xs leading-relaxed text-gray-500"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+              viewport={{ once: true }}
+            >
               Apple and the Apple Logo are trademarks of Apple Inc.
               <br />
               Google Play and the Google Play logo are trademarks of Google LLC.
-            </p>
-          </div>
-        </div>
-      </div>
+            </motion.p>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
       {/* Bottom Bar */}
-      <div className="bg-[#212126] py-4">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between px-6 text-xs text-gray-50 md:flex-row">
-          <p className="text-gray-50">
-            © 1996–2026 Shaadi.com, The World’s Leading Matchmaking Service™
-          </p>
-          <p className="mt-2 md:mt-0">
-            Passionately created by People Group ➤
-          </p>
-        </div>
-      </div>
-    </div>
+      <motion.div 
+        className="bg-[#212126] py-4"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        viewport={{ once: true, amount: 0.5 }}
+      >
+        <motion.div 
+          className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 text-center text-xs text-gray-50 md:flex-row md:text-left"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.2, delayChildren: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <p>© 1996–2026 Shaadi.com, The World’s Leading Matchmaking Service™</p>
+          <p>Passionately created by People Group ➤</p>
+        </motion.div >
+      </motion.div >
+    </footer>
   );
 };
 

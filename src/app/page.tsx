@@ -12,7 +12,7 @@ import { DatingTabs, exploreTabs, HoroscopeTabs, MatrimonyServiceTabs } from "..
 
 export default function Home() {
   return (
-    <div className="min-h-screen space-y-4 ">
+    <div className="min-h-screen space-y-3 sm:space-y-4">
       <HomeBanner />
       <ShaadiExperience />
       <FounderMessage />

@@ -6,13 +6,13 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[400px] w-full overflow-hidden bg-linear-to-r from-pink-50 to-orange-50">
-        <div className="relative z-10 mx-auto flex max-w-6xl items-center px-6 py-20">
+      <section className="relative min-h-[300px] sm:min-h-[400px] w-full overflow-hidden bg-linear-to-r from-pink-50 to-orange-50">
+        <div className="relative z-10 mx-auto flex max-w-6xl items-center px-4 sm:px-6 py-12 sm:py-20">
           <div className="max-w-3xl">
-            <h1 className="mb-6 text-5xl font-bold leading-tight text-gray-900">
+            <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
               About Shaadi.com
             </h1>
-            <p className="text-xl leading-relaxed text-gray-700">
+            <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700">
               For over two decades, we've been India's most trusted matrimonial platform, 
               bringing together millions of hearts and creating countless success stories.
             </p>
@@ -21,27 +21,36 @@ const AboutPage = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-12 md:grid-cols-2 items-center">
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-8 sm:gap-12 md:grid-cols-2 items-center">
             <div>
-              <h2 className="mb-6 text-3xl font-bold text-gray-900">Our Mission</h2>
-              <p className="mb-4 text-lg leading-relaxed text-gray-700">
+              <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-gray-900">Our Mission</h2>
+              <p className="mb-3 sm:mb-4 text-base sm:text-lg leading-relaxed text-gray-700">
                 At Shaadi.com, our mission is to use technology for good and bring back 
                 deep and meaningful relationships. We believe that everyone deserves to 
                 find their perfect life partner.
               </p>
-              <p className="text-lg leading-relaxed text-gray-700">
+              <p className="text-base sm:text-lg leading-relaxed text-gray-700">
                 We're committed to making the journey of finding love safe, secure, 
                 and successful for millions of people worldwide.
               </p>
             </div>
-            <div className="relative h-80 w-full">
+            <div className="relative h-64 sm:h-80 w-full">
+              {/* Mobile & Medium Background */}
+              <Image
+                src="/images/mobile-banner-bg.jpg"
+                alt="Happy couple"
+                fill
+                className="rounded-lg object-cover lg:hidden"
+              />
+              
+              {/* Desktop Background */}
               <Image
                 src="/images/home-banner.jpg"
                 alt="Happy couple"
                 fill
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover hidden lg:block"
               />
             </div>
           </div>
@@ -49,84 +58,87 @@ const AboutPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
+      <section className="bg-gray-50 py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
             Our Impact in Numbers
           </h2>
-          <div className="grid gap-8 md:grid-cols-4 text-center">
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <div className="mb-2 text-4xl font-bold text-pink-600">80L+</div>
-              <div className="text-gray-700">Success Stories</div>
+          <div className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-2 md:grid-cols-4 text-center">
+            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
+              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">80L+</div>
+              <div className="text-sm sm:text-base text-gray-700">Success Stories</div>
             </div>
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <div className="mb-2 text-4xl font-bold text-pink-600">35L+</div>
-              <div className="text-gray-700">Verified Profiles</div>
+            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
+              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">35L+</div>
+              <div className="text-sm sm:text-base text-gray-700">Verified Profiles</div>
             </div>
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <div className="mb-2 text-4xl font-bold text-pink-600">20+</div>
-              <div className="text-gray-700">Years of Trust</div>
+            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
+              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">20+</div>
+              <div className="text-sm sm:text-base text-gray-700">Years of Trust</div>
             </div>
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-              <div className="mb-2 text-4xl font-bold text-pink-600">100+</div>
-              <div className="text-gray-700">Countries</div>
+            <div className="rounded-lg bg-white p-4 sm:p-6 shadow-sm">
+              <div className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-pink-600">100+</div>
+              <div className="text-sm sm:text-base text-gray-700">Countries</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
             Our Core Values
           </h2>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-4">
+                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
                   <Image
                     src="/svg/bluetick.svg"
                     alt="Trust"
-                    width={40}
-                    height={40}
+                    width={32}
+                    height={32}
+                    className="sm:w-10 sm:h-10"
                   />
                 </div>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900">Trust & Safety</h3>
-              <p className="text-gray-700">
+              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Trust & Safety</h3>
+              <p className="text-sm sm:text-base text-gray-700">
                 Every profile is verified to ensure authenticity and safety for all our members.
               </p>
             </div>
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-4">
+                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
                   <Image
                     src="/svg/matchmaking.svg"
                     alt="Innovation"
-                    width={40}
-                    height={40}
+                    width={32}
+                    height={32}
+                    className="sm:w-10 sm:h-10"
                   />
                 </div>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900">Innovation</h3>
-              <p className="text-gray-700">
+              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Innovation</h3>
+              <p className="text-sm sm:text-base text-gray-700">
                 We use cutting-edge AI and technology to provide the most relevant matches.
               </p>
             </div>
-            <div className="text-center">
+            <div className="text-center sm:col-span-2 lg:col-span-1">
               <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-pink-100 p-4">
+                <div className="rounded-full bg-pink-100 p-3 sm:p-4">
                   <Image
                     src="/svg/moneyback.svg"
                     alt="Success"
-                    width={40}
-                    height={40}
+                    width={32}
+                    height={32}
+                    className="sm:w-10 sm:h-10"
                   />
                 </div>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900">Success Guarantee</h3>
-              <p className="text-gray-700">
+              <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-semibold text-gray-900">Success Guarantee</h3>
+              <p className="text-sm sm:text-base text-gray-700">
                 We're so confident in our service that we offer a money-back guarantee.
               </p>
             </div>
@@ -135,7 +147,7 @@ const AboutPage = () => {
       </section>
 
       {/* Founder Message */}
-      <section className="relative min-h-[520px] w-full overflow-hidden bg-[#f7efe6]">
+      <section className="relative min-h-[400px] sm:min-h-[520px] w-full overflow-hidden bg-[#f7efe6]">
         <Image
           src="/images/founder-bg.jpeg"
           alt="Background"
@@ -143,12 +155,12 @@ const AboutPage = () => {
           priority
           className="object-cover"
         />
-        <div className="relative z-10 mx-auto flex max-w-6xl items-end px-6 pt-20">
-          <div className="max-w-xl pb-16">
-            <div className="mb-6 text-7xl font-serif leading-none text-gray-300">
+        <div className="relative z-10 mx-auto flex max-w-6xl items-end px-4 sm:px-6 pt-12 sm:pt-20">
+          <div className="max-w-xl pb-8 sm:pb-16">
+            <div className="mb-4 sm:mb-6 text-5xl sm:text-6xl lg:text-7xl font-serif leading-none text-gray-300">
               "
             </div>
-            <p className="mb-6 text-4xl font-semibold leading-relaxed text-gray-900">
+            <p className="mb-4 sm:mb-6 text-2xl sm:text-3xl lg:text-4xl font-semibold leading-relaxed text-gray-900">
               At Shaadi.com, it is our life's mission to use technology for good and
               bring back deep and meaningful relationships.
             </p>
@@ -156,7 +168,7 @@ const AboutPage = () => {
               – Anupam Mittal, Founder & CEO
             </p>
           </div>
-          <div className="absolute bottom-0 right-10 hidden h-[460px] w-[460px] md:block">
+          <div className="absolute bottom-0 right-4 sm:right-10 hidden md:block h-[300px] w-[300px] sm:h-[380px] sm:w-[380px] lg:h-[460px] lg:w-[460px]">
             <Image
               src="/images/founder.png"
               alt="Founder"
@@ -168,31 +180,31 @@ const AboutPage = () => {
       </section>
 
       {/* Journey Section */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="mb-8 sm:mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">
             Our Journey
           </h2>
-          <div className="space-y-8">
-            <div className="rounded-lg border bg-gray-50 p-8">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">The Beginning</h3>
-              <p className="text-gray-700 leading-relaxed">
+          <div className="space-y-6 sm:space-y-8">
+            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
+              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">The Beginning</h3>
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
                 Founded with the vision of revolutionizing the way people find life partners, 
                 Shaadi.com started as a simple idea to connect hearts across the globe. 
                 What began as a small startup has now become India's largest matrimonial platform.
               </p>
             </div>
-            <div className="rounded-lg border bg-gray-50 p-8">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">Innovation & Growth</h3>
-              <p className="text-gray-700 leading-relaxed">
+            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
+              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">Innovation & Growth</h3>
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
                 Over the years, we've continuously innovated with features like AI-powered matching, 
                 video profiles, and advanced privacy controls. Our commitment to technology and 
                 user experience has helped millions find their perfect match.
               </p>
             </div>
-            <div className="rounded-lg border bg-gray-50 p-8">
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">Global Presence</h3>
-              <p className="text-gray-700 leading-relaxed">
+            <div className="rounded-lg border bg-gray-50 p-6 sm:p-8">
+              <h3 className="mb-3 sm:mb-4 text-lg sm:text-xl font-semibold text-gray-900">Global Presence</h3>
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
                 Today, Shaadi.com serves members across 100+ countries, making it the world's 
                 largest matrimonial service. We continue to expand our reach while maintaining 
                 our core values of trust, authenticity, and success.
@@ -203,15 +215,15 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-linear-to-r from-pink-500 to-orange-500 py-16 text-white">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="mb-6 text-3xl font-bold">
+      <section className="bg-linear-to-r from-pink-500 to-orange-500 py-12 sm:py-16 text-white">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+          <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold">
             Ready to Find Your Perfect Match?
           </h2>
-          <p className="mb-8 text-xl">
+          <p className="mb-6 sm:mb-8 text-base sm:text-lg lg:text-xl">
             Join millions of happy couples who found love on Shaadi.com
           </p>
-          <button className="rounded-lg bg-white px-8 py-3 text-lg font-semibold text-pink-600 transition-colors hover:bg-gray-100">
+          <button className="rounded-lg bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg font-semibold text-pink-600 transition-colors hover:bg-gray-100">
             Start Your Journey Today
           </button>
         </div>
