@@ -146,7 +146,7 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <span className="text-base border-b border-dotted border-gray-400 group-hover:border-gray-900 transition-colors duration-200">
+                      <span className="text-base border-b border-dotted border-gray-900 group-hover:border-gray-900 transition-colors duration-200">
                         {item}
                       </span>
                       {index < tab.items.length - 1 && (
