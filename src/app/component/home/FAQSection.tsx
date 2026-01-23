@@ -45,10 +45,10 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="bg-white py-12 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-white py-12 md:py-0 md:pb-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-0 ">
         {/* Heading */}
-        <h2 className="mb-8 sm:mb-10 text-2xl sm:text-3xl font-semibold text-gray-900">
+        <h2 className="mb-8 sm:mb-10 text-2xl sm:text-4xl font-semibold text-[#212126]">
           Frequently Asked Questions
         </h2>
 
@@ -58,34 +58,34 @@ const FAQSection = () => {
             <AccordionItem
               key={faq.id}
               value={faq.id}
-              className="rounded-2xl border border-gray-200 bg-gray-50 px-4 sm:px-6 transition-all duration-300 hover:shadow-md"
+              className="rounded-2xl border border-gray-200 bg-transparent px-4 sm:px-6 transition-all duration-300 cursor-pointer"
             >
-              <AccordionTrigger className="group flex items-center justify-between py-4 sm:py-5 text-left hover:no-underline [&>svg]:hidden">
+              <AccordionTrigger className="group flex items-center justify-between py-4 sm:py-5 text-left hover:no-underline [&>svg]:hidden cursor-pointer">
                 <div className="flex items-start sm:items-center gap-3 sm:gap-4">
-                  <span className="text-lg sm:text-xl font-medium text-gray-500 transition-colors duration-200 shrink-0">
+                  <span className="text-lg md:text-2xl font-medium text-[#212126] transition-colors duration-200 shrink-0">
                     {faq.id}
                   </span>
-                  <span className="text-base sm:text-lg font-semibold text-gray-900 transition-colors duration-200 group-hover:text-blue-600">
+                  <span className="text-base md:text-2xl font-semibold text-[#212126] transition-colors duration-200 group-hover:text-[#212126]">
                     {faq.question}
                   </span>
                 </div>
 
                 {/* Plus / Minus */}
-                <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white transition-all duration-300 group-hover:border-blue-400 group-hover:bg-blue-50 group-data-[state=open]:border-blue-500 group-data-[state=open]:bg-blue-100 shrink-0">
+                <span className="ml-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#212126] bg-white transition-all duration-300 group-hover:border-[#212126] group-hover:bg-white group-data-[state=open]:border-[#212126] group-data-[state=open]:bg-white shrink-0">
                   <Plus
                     size={18}
-                    className="text-gray-600 transition-all duration-300 group-hover:text-blue-600 group-data-[state=open]:hidden group-data-[state=open]:rotate-90"
+                    className="text-[#212126] transition-all duration-300 group-hover:text-[#212126] group-data-[state=open]:hidden group-data-[state=open]:rotate-90"
                   />
                   <Minus
                     size={18}
-                    className="text-blue-600 hidden transition-all duration-300 group-data-[state=open]:block"
+                    className="text-[#212126] hidden transition-all duration-300 group-data-[state=open]:block"
                   />
                 </span>
               </AccordionTrigger>
 
               <AccordionContent className="border-t border-gray-200 pt-4 sm:pt-6 pb-4 sm:pb-5 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
                 <div className="animate-in fade-in-0 slide-in-from-top-2 duration-300">
-                  <p className="text-sm leading-relaxed text-gray-700 pl-0 sm:pl-8">
+                  <p className="text-xl leading-relaxed text-[#212126] font-normal">
                     {faq.answer}
                   </p>
                 </div>

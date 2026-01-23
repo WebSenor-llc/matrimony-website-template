@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const FounderMessage = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-[#f7efe6]">
+    <section className="relative w-full overflow-hidden">
 
       {/* Background Image */}
       <motion.div
@@ -24,14 +24,12 @@ const FounderMessage = () => {
         />
       </motion.div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-white/70"></div>
 
       {/* Content Wrapper */}
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-16 md:py-16 md:pt-16">
 
         {/* GRID FOR MOBILE + MEDIUM */}
-        <motion.div 
+        <motion.div
           className="grid gap-12 md:grid-cols-2 lg:block"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -41,18 +39,24 @@ const FounderMessage = () => {
 
           {/* Text Content */}
           <div className="max-w-xl">
-            <motion.div 
+            <motion.div
               className="mb-4 text-7xl font-serif leading-none text-gray-300"
               initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              "
+              <Image
+                src="/svg/colon.svg"   // replace with your image path
+                alt="Quote icon"
+                width={56}
+                height={56}
+                className="w-10 h-10 sm:w-20 sm:h-20 "
+              />
             </motion.div>
 
-            <motion.p 
-              className="mb-6 text-3xl md:text-3xl lg:text-4xl font-semibold leading-relaxed text-gray-900"
+            <motion.p
+              className="mb-6 text-3xl md:text-3xl lg:text-4xl font-semibold leading-tight  text-[#212126]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -62,7 +66,7 @@ const FounderMessage = () => {
               bring back deep and meaningful relationships.
             </motion.p>
 
-            <motion.p 
+            <motion.p
               className="text-sm font-medium text-gray-600"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +78,7 @@ const FounderMessage = () => {
           </div>
 
           {/* IMAGE FOR MOBILE + MEDIUM */}
-          <motion.div 
+          <motion.div
             className="relative mx-auto h-[260px] w-[260px] md:h-[360px] md:w-[360px] md:hidden"
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -91,7 +95,7 @@ const FounderMessage = () => {
         </motion.div>
 
         {/* IMAGE FOR LARGE SCREENS ONLY */}
-        <motion.div 
+        <motion.div
           className="absolute bottom-0 right-10 hidden h-[460px] w-[460px] md:block"
           initial={{ opacity: 0, x: 50, scale: 0.9 }}
           whileInView={{ opacity: 1, x: 0, scale: 1 }}

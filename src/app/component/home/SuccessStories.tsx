@@ -68,10 +68,10 @@ const SuccessStories = () => {
   };
 
   return (
-    <section className="bg-white py-12 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-white py-12 md:py-0 md:pt-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-0">
         <motion.div 
-          className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-3"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ staggerChildren: 0.2, delayChildren: 0.1 }}
@@ -87,7 +87,7 @@ const SuccessStories = () => {
             viewport={{ once: true }}
           >
             <motion.h2 
-              className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-semibold text-gray-900"
+              className="mb-3 sm:mb-4 text-2xl sm:text-4xl font-bold text-[#212126]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -96,7 +96,7 @@ const SuccessStories = () => {
               Real Stories, True Connections
             </motion.h2>
             <motion.p 
-              className="mb-6 sm:mb-8 text-gray-600 text-sm sm:text-base"
+              className="mb-6 sm:mb-8 text-[#212126] text-lg"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -106,7 +106,7 @@ const SuccessStories = () => {
               connections and shared journeys. Your success story could be next!
             </motion.p>
             <motion.button 
-              className="rounded-full bg-sky-500 px-5 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-white hover:bg-sky-600 transition-colors"
+              className="rounded-full bg-[#0aa4b8] px-8 py-2.5 sm:py-3 text-sm font-semibold text-white hover:bg-[#27c6db] transition-colors cursor-pointer"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -144,13 +144,13 @@ const SuccessStories = () => {
                     transition={{ duration: 0.4, delay: i * 0.1 }}
                   >
                     <motion.div 
-                      className="overflow-hidden rounded-2xl border shadow-sm"
+                      className="overflow-hidden rounded-2xl border shadow-sm h-96 sm:h-[28rem] flex flex-col"
                       whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
                       transition={{ duration: 0.3 }}
                     >
 
                       {/* Image */}
-                      <div className="relative h-48 sm:h-56 overflow-hidden">
+                      <div className="relative h-48 sm:h-56 overflow-hidden flex-shrink-0">
                         <motion.div
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.3 }}
@@ -166,11 +166,11 @@ const SuccessStories = () => {
                       </div>
 
                       {/* Content */}
-                      <div className="p-3 sm:p-4">
-                        <h3 className="mb-2 text-base sm:text-lg font-semibold">
+                      <div className="p-3 sm:p-4 flex-1 flex flex-col justify-start">
+                        <h3 className="mb-2 text-xl font-bold flex-shrink-0">
                           {story.title}
                         </h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <p className="text-lg sm:text-xl text-[#212126] leading-relaxed">
                           {story.description}
                         </p>
                       </div>

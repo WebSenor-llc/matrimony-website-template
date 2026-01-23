@@ -23,14 +23,14 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
 
   return (
     <motion.section 
-      className="rounded-2xl border bg-gray-50 px-4 md:px-0 py-4 sm:py-6 max-w-7xl mx-auto"
+      className="rounded-2xl border bg-[#f9f9fb] px-4  py-4 sm:py-6 max-w-6xl mx-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       {/* Title */}
       <motion.h2 
-        className="mb-4 sm:mb-6 text-lg sm:text-xl font-semibold text-gray-900"
+        className="mb-4 sm:mb-6 text-lg md:text-2xl font-semibold text-gray-900"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -57,7 +57,7 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
               whileHover={{ scale: 1.05 }}
               viewport={{ once: true }}
             >
-              <span className="border-b border-dotted border-gray-400 group-hover:border-gray-900 transition-colors duration-200">
+              <span className="text-base border-b border-dotted border-gray-400 group-hover:border-gray-900 transition-colors duration-200">
                 {item}
               </span>
               {index < allItems.length - 1 && (
@@ -80,7 +80,7 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <TabsList className="mb-4 sm:mb-6 flex w-full justify-start gap-3 sm:gap-6 border-b bg-transparent p-0 overflow-x-auto">
+              <TabsList className="mb-4 sm:mb-6 flex w-full justify-start gap-3 sm:gap-6 border-b bg-transparent p-0 overflow-x-auto scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {tabs.map((tab, index) => (
                   <motion.div
                     key={tab?.key}
@@ -91,15 +91,33 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
                     <TabsTrigger
                       value={tab?.key}
                       className="
-                        relative rounded-none px-0 pb-2 sm:pb-3 text-sm sm:text-base font-medium text-gray-600 whitespace-nowrap shrink-0 transition-colors duration-200
+                        relative rounded-none px-0 pb-2 sm:pb-3 text-sm md:text-lg font-medium text-gray-600 whitespace-nowrap shrink-0 transition-all duration-200 bg-transparent border-none shadow-none
                         data-[state=active]:text-gray-900
+                        data-[state=active]:bg-transparent
+                        data-[state=active]:border-none
+                        data-[state=active]:shadow-none
                         data-[state=active]:after:absolute
                         data-[state=active]:after:bottom-0
                         data-[state=active]:after:left-0
-                        data-[state=active]:after:h-[2px]
+                        data-[state=active]:after:h-[4px]
                         data-[state=active]:after:w-full
-                        data-[state=active]:after:bg-gray-900
-                        hover:text-gray-800
+                        data-[state=active]:after:bg-black
+                        hover:text-[#212126]
+                        hover:bg-transparent
+                        hover:border-none
+                        hover:shadow-none
+                        hover:after:absolute
+                        hover:after:bottom-0
+                        hover:after:left-0
+                        hover:after:h-[2px]
+                        hover:after:w-full
+                        hover:after:bg-gray-400
+                        hover:after:rounded-t-sm
+                        focus:outline-none
+                        focus:ring-0
+                        focus:border-none
+                        focus:shadow-none
+                        cursor-pointer
                       "
                     >
                       {tab.label}
@@ -128,7 +146,7 @@ const ExploreProfilesTabs = ({ title, tabs }: ExploreProfilesTabsProps) => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <span className="border-b border-dotted border-gray-400 group-hover:border-gray-900 transition-colors duration-200">
+                      <span className="text-base border-b border-dotted border-gray-400 group-hover:border-gray-900 transition-colors duration-200">
                         {item}
                       </span>
                       {index < tab.items.length - 1 && (

@@ -2,9 +2,27 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const HomeBanner = () => {
+  const [currentStatIndex, setCurrentStatIndex] = useState(0);
+
+  const stats = [
+    { text: "#1 Matchmaking Service", stars: null },
+    { text: "Ratings on Playstore by 2.4 Lakh users", stars: "⭐⭐⭐⭐⭐" },
+    { text: "80 Lakh Success Stories", stars: null }
+  ];
+
+  // Auto-slide effect for medium screens
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStatIndex((prevIndex) => (prevIndex + 1) % stats.length);
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [stats.length]);
+
   return (
     <section className="relative h-[65vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden">
       
@@ -96,8 +114,8 @@ const HomeBanner = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link
-              href="/register"
-              className="inline-block rounded-full bg-sky-500 px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-colors duration-200 hover:bg-sky-600 shadow-lg hover:shadow-xl"
+              href="/"
+              className="inline-block rounded-full bg-[#0aa4b8] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-colors duration-200 hover:bg-[#00bcd5] shadow-lg hover:shadow-xl"
             >
               Find Your Match
             </Link>
@@ -111,7 +129,8 @@ const HomeBanner = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
         >
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] sm:text-sm text-gray-200">
+          {/* Desktop/Large Screen - Show all stats */}
+          <div className="hidden lg:flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] sm:text-sm text-gray-200">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -119,7 +138,7 @@ const HomeBanner = () => {
             >
               #1 Matchmaking Service
             </motion.span>
-            <span className="hidden sm:inline">|</span>
+            <span>|</span>
             <motion.span 
               className="text-center"
               initial={{ opacity: 0 }}
@@ -128,7 +147,7 @@ const HomeBanner = () => {
             >
               ⭐⭐⭐⭐⭐ Ratings on Playstore by 2.4 Lakh users
             </motion.span>
-            <span className="hidden sm:inline">|</span>
+            <span>|</span>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -136,6 +155,29 @@ const HomeBanner = () => {
             >
               80 Lakh Success Stories
             </motion.span>
+          </div>
+
+          {/* Medium Screen - Slider */}
+          <div className="lg:hidden flex flex-col items-center justify-center text-[11px] sm:text-sm text-gray-200 h-12">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStatIndex}
+                initial={{ opacity: 0, x: 150 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -150}}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+                className="text-center flex flex-col items-center"
+              >
+                {stats[currentStatIndex].stars && (
+                  <div className="mb-1 text-xs">
+                    {stats[currentStatIndex].stars}
+                  </div>
+                )}
+                <div>
+                  {stats[currentStatIndex].text}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
 

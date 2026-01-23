@@ -30,7 +30,7 @@ const SignUpModalWrapper = ({ isOpen, onClose }: SignUpModalWrapperProps) => {
           />
           
           <motion.div 
-            className="relative w-full max-w-sm sm:max-w-md rounded-lg bg-white p-6 sm:p-8 shadow-xl border"
+            className="relative w-full max-w-lg sm:max-w-xl lg:max-w-2xl rounded-lg bg-white p-6 sm:p-8 shadow-xl border"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

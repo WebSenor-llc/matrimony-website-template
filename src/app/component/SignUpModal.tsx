@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { X, ArrowLeft, User, AlertCircle, ChevronDown, HelpCircle, Shield, CheckCircle } from "lucide-react";
+import { X, ArrowLeft, User, AlertCircle, HelpCircle, Shield, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Autocomplete, TextField, Tooltip } from "@mui/material";
+import Image from "next/image";
 
 interface SignUpModalProps {
   onBack: () => void;
@@ -34,9 +36,11 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
   const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [showReligionDropdown, setShowReligionDropdown] = useState(false);
-  const [showCommunityDropdown, setShowCommunityDropdown] = useState(false);
-  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  
+  // Remove dropdown state since MUI Autocomplete handles it internally
+  // const [showReligionDropdown, setShowReligionDropdown] = useState(false);
+  // const [showCommunityDropdown, setShowCommunityDropdown] = useState(false);
+  // const [showCountryDropdown, setShowCountryDropdown] = useState(false);
 
   const profileOptions: ProfileFor[] = [
     "Myself",
@@ -109,14 +113,14 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
 
   const handleProfileSelect = (profile: ProfileFor) => {
     setSelectedProfile(profile);
-    // Show gender options for certain selections
-    if (["Myself", "My Relative", "My Friend"].includes(profile)) {
-      setStep(2);
+    // Auto-set gender for family members, but don't advance step
+    if (["My Son", "My Brother"].includes(profile)) {
+      setSelectedGender("Male");
+    } else if (["My Daughter", "My Sister"].includes(profile)) {
+      setSelectedGender("Female");
     } else {
-      // Auto-set gender for family members
-      const autoGender = ["My Son", "My Brother"].includes(profile) ? "Male" : "Female";
-      setSelectedGender(autoGender);
-      setStep(2);
+      // Reset gender for profiles that need manual selection
+      setSelectedGender(null);
     }
   };
 
@@ -125,15 +129,17 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
   };
 
   const handleContinue = () => {
-    if (step === 2) {
+    if (step === 1) {
+      setStep(2);
+    } else if (step === 2) {
       setStep(3);
     } else if (step === 3) {
       setStep(4);
+    } else if (step === 3) {
+      setStep(4);
     } else if (step === 4) {
-      setStep(5);
-    } else if (step === 5) {
       // Show success step
-      setStep(6);
+      setStep(5);
     } else {
       // Handle final action (close modal or redirect)
       console.log("Account created successfully!");
@@ -142,42 +148,35 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
   };
 
   const handleBack = () => {
-    if (step === 5) {
-      setStep(4);
-    } else if (step === 4) {
+    if (step === 4) {
       setStep(3);
     } else if (step === 3) {
       setStep(2);
     } else if (step === 2) {
       setStep(1);
-      setSelectedGender(null);
     } else {
       onBack();
     }
   };
 
-  const handleReligionSelect = (selectedReligion: string) => {
-    setReligion(selectedReligion);
+  const handleReligionSelect = (selectedReligion: string | null) => {
+    setReligion(selectedReligion || "");
     setCommunity(""); // Reset community when religion changes
-    setShowReligionDropdown(false);
   };
 
-  const handleCommunitySelect = (selectedCommunity: string) => {
-    setCommunity(selectedCommunity);
+  const handleCommunitySelect = (selectedCommunity: string | null) => {
+    setCommunity(selectedCommunity || "");
     setCountry(""); // Reset country when community changes
-    setShowCommunityDropdown(false);
   };
 
-  const handleCountrySelect = (selectedCountry: string) => {
-    setCountry(selectedCountry);
-    setShowCountryDropdown(false);
+  const handleCountrySelect = (selectedCountry: string | null) => {
+    setCountry(selectedCountry || "");
   };
 
-  const canContinue = step === 1 ? selectedProfile : 
-                   step === 2 ? selectedProfile && selectedGender :
-                   step === 3 ? firstName && lastName && day && month && year :
-                   step === 4 ? religion && community && country :
-                   step === 5 ? email && phoneNumber : false;
+  const canContinue = step === 1 ? selectedProfile && selectedGender : 
+                   step === 2 ? firstName && lastName && day && month && year :
+                   step === 3 ? religion && community && country :
+                   step === 4 ? email && phoneNumber : false;
 
   return (
     <motion.div
@@ -203,9 +202,9 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
             <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
           </motion.button>
         )}
-        {(step === 1 || step === 6) && <div></div>}
+        {(step === 1 || step === 5) && <div></div>}
         
-        {step < 6 && (
+        {step < 5 && (
           <motion.button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 p-1 transition-colors duration-200"
@@ -215,7 +214,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
             <X size={18} className="sm:w-5 sm:h-5" />
           </motion.button>
         )}
-        {step === 6 && <div></div>}
+        {step === 5 && <div></div>}
       </motion.div>
 
       {/* Profile Avatar */}
@@ -227,10 +226,10 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
       >
         <motion.div 
           className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center ${
-            step === 6 ? 'bg-green-100' : step === 5 ? 'bg-yellow-100' : step === 4 ? 'bg-green-100' : step === 3 ? 'bg-purple-100' : 'bg-orange-100'
+            step === 5 ? 'bg-green-100' : 'bg-transparent'
           }`}
           animate={{ 
-            backgroundColor: step === 6 ? '#dcfce7' : step === 5 ? '#fef3c7' : step === 4 ? '#dcfce7' : step === 3 ? '#f3e8ff' : '#fed7aa'
+            backgroundColor: step === 5 ? '#dcfce7' : 'transparent'
           }}
           transition={{ duration: 0.3 }}
         >
@@ -242,14 +241,16 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
               exit={{ scale: 0, rotate: 180 }}
               transition={{ duration: 0.3 }}
             >
-              {step === 6 ? (
-                <CheckCircle size={24} className="text-green-500 sm:w-8 sm:h-8" />
-              ) : step === 5 ? (
-                <Shield size={24} className="text-yellow-500 sm:w-8 sm:h-8" />
+              {step === 5 ? (
+                <CheckCircle size={32} className="text-green-500 sm:w-10 sm:h-10" />
               ) : (
-                <User size={24} className={`sm:w-8 sm:h-8 ${
-                  step === 4 ? 'text-green-400' : step === 3 ? 'text-purple-400' : 'text-orange-400'
-                }`} />
+                <Image
+                  src={`/svg/step-${step}.svg`}
+                  alt={`Step ${step}`}
+                  width={64}
+                  height={64}
+                  className="w-12 h-12 sm:w-16 sm:h-16"
+                />
               )}
             </motion.div>
           </AnimatePresence>
@@ -278,7 +279,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
             </motion.h2>
 
             <motion.div 
-              className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6"
+              className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ staggerChildren: 0.1, delayChildren: 0.4 }}
@@ -287,9 +288,9 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                 <motion.button
                   key={option}
                   onClick={() => handleProfileSelect(option)}
-                  className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-full border-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border-2 text-sm font-medium transition-all duration-200 ${
                     selectedProfile === option
-                      ? "border-teal-500 bg-teal-50 text-teal-700 shadow-md"
+                      ? "border-[#00bcd5] bg-cyan-50 text-cyan-700 shadow-md"
                       : "border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-sm"
                   }`}
                   initial={{ opacity: 0, y: 20 }}
@@ -298,88 +299,116 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
+                  {/* Circular Checkbox inside button */}
+                  {selectedProfile === option && (
+                    <motion.div 
+                      className="w-5 h-5 rounded-full bg-[#00bcd5] flex items-center justify-center"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                    >
+                      <motion.svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        className="text-white"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                      >
+                        <motion.path
+                          d="M2 6L4.5 8.5L10 3"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="none"
+                        />
+                      </motion.svg>
+                    </motion.div>
+                  )}
                   {option}
                 </motion.button>
               ))}
             </motion.div>
+
+            {/* Gender Section - Show if profile needs gender selection */}
+            {selectedProfile && ["Myself", "My Relative", "My Friend"].includes(selectedProfile) && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                transition={{ duration: 0.4 }}
+              >
+                <motion.h3 
+                  className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  Gender
+                </motion.h3>
+                
+                <motion.div 
+                  className="flex justify-center gap-3 mb-6 sm:mb-8"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                >
+                  {(["Male", "Female"] as Gender[]).map((gender, index) => (
+                    <motion.button
+                      key={gender}
+                      onClick={() => handleGenderSelect(gender)}
+                      className={`flex items-center gap-3 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full border-2 text-sm font-medium transition-all duration-200 ${
+                        selectedGender === gender
+                          ? "border-[#00bcd5] bg-cyan-50 text-cyan-700 shadow-md"
+                          : "border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-sm"
+                      }`}
+                      initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Circular Checkbox for gender */}
+                      {selectedGender === gender && (
+                        <motion.div 
+                          className="w-5 h-5 rounded-full bg-[#00bcd5] flex items-center justify-center"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                        >
+                          <motion.svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            className="text-white"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 0.3, delay: 0.1 }}
+                          >
+                            <motion.path
+                              d="M2 6L4.5 8.5L10 3"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </motion.svg>
+                        </motion.div>
+                      )}
+                      {gender}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )}
           </>
         )}
 
         {step === 2 && (
-          <>
-            <motion.h2 
-              className="text-lg sm:text-xl font-medium text-gray-800 mb-4 sm:mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              This Profile is for
-            </motion.h2>
-
-            <motion.div 
-              className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.05, delayChildren: 0.4 }}
-            >
-              {profileOptions.map((option, index) => (
-                <motion.button
-                  key={option}
-                  onClick={() => handleProfileSelect(option)}
-                  className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-full border-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
-                    selectedProfile === option
-                      ? "border-teal-500 bg-teal-50 text-teal-700 shadow-md"
-                      : "border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-sm"
-                  }`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.03 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {option}
-                </motion.button>
-              ))}
-            </motion.div>
-
-            <motion.h3 
-              className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              Gender
-            </motion.h3>
-            
-            <motion.div 
-              className="flex justify-center gap-3 mb-4 sm:mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.7 }}
-            >
-              {(["Male", "Female"] as Gender[]).map((gender, index) => (
-                <motion.button
-                  key={gender}
-                  onClick={() => handleGenderSelect(gender)}
-                  className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full border-2 text-sm font-medium transition-all duration-200 ${
-                    selectedGender === gender
-                      ? "border-teal-500 bg-teal-50 text-teal-700 shadow-md"
-                      : "border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-sm"
-                  }`}
-                  initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {gender}
-                </motion.button>
-              ))}
-            </motion.div>
-          </>
-        )}
-
-        {step === 3 && (
           <>
             <motion.h2 
               className="text-lg sm:text-xl font-medium text-gray-800 mb-4 sm:mb-6"
@@ -402,7 +431,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="First name"
-                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
@@ -412,7 +441,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last name"
-                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.6 }}
@@ -447,7 +476,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   onChange={(e) => setDay(e.target.value)}
                   placeholder="DD"
                   maxLength={2}
-                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 />
               </motion.div>
               <motion.div
@@ -462,7 +491,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   onChange={(e) => setMonth(e.target.value)}
                   placeholder="MM"
                   maxLength={2}
-                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 />
               </motion.div>
               <motion.div
@@ -477,17 +506,17 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="YYYY"
                   maxLength={4}
-                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                  className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-2.5 sm:py-3 text-sm text-center focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 />
               </motion.div>
             </motion.div>
           </>
         )}
 
-        {step === 4 && (
+        {step === 3 && (
           <>
             <motion.h2 
-              className="text-lg sm:text-xl font-medium text-gray-800 mb-6 sm:mb-8"
+              className="text-lg sm:text-xl font-medium text-gray-800 mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -497,58 +526,51 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
 
             {/* Religion Dropdown */}
             <motion.div 
-              className="relative mb-4 sm:mb-6"
+              className="relative mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <label className="block text-xs text-gray-500 mb-2">Religion</label>
-              <motion.button
-                onClick={() => setShowReligionDropdown(!showReligionDropdown)}
-                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-left text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 flex items-center justify-between transition-all duration-200"
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <span className={religion ? "text-gray-900" : "text-gray-400"}>
-                  {religion || "Religion"}
-                </span>
-                <motion.div
-                  animate={{ rotate: showReligionDropdown ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronDown size={18} className="text-gray-400 sm:w-5 sm:h-5" />
-                </motion.div>
-              </motion.button>
-
-              {/* Religion Dropdown Options */}
-              <AnimatePresence>
-                {showReligionDropdown && (
-                  <motion.div 
-                    className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 sm:max-h-60 overflow-y-auto"
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {religionOptions.map((option, index) => (
-                      <motion.button
-                        key={option}
-                        onClick={() => handleReligionSelect(option)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-left text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors duration-150"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.1, delay: index * 0.02 }}
-                        whileHover={{ backgroundColor: "#f9fafb" }}
-                      >
-                        {option}
-                      </motion.button>
-                    ))}
-                  </motion.div>
+              <Autocomplete
+                options={religionOptions}
+                value={religion || null}
+                onChange={(event, newValue) => handleReligionSelect(newValue)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Religion"
+                    variant="outlined"
+                    size="medium"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        padding: '4px 8px',
+                        '& .MuiOutlinedInput-input': {
+                          padding: '12px 14px',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#00bcd5',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#00bcd5',
+                          borderWidth: '2px',
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: '12px',
+                        color: '#9ca3af',
+                        '&.Mui-focused': {
+                          color: '#00bcd5',
+                        },
+                      },
+                    }}
+                  />
                 )}
-              </AnimatePresence>
+              />
             </motion.div>
 
-            {/* Community Section - Only show if religion is selected */}
+            {/* Community Section - Show when religion is selected */}
             <AnimatePresence>
               {religion && religion !== "No Religion" && (
                 <motion.div
@@ -557,79 +579,82 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <motion.h3 
-                    className="text-lg sm:text-xl font-medium text-gray-800 mb-4 sm:mb-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    Community
-                  </motion.h3>
-
                   <motion.div 
-                    className="relative mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3"
+                    className="relative mb-3 sm:mb-4 flex items-end gap-2 sm:gap-3"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
                     <div className="flex-1">
-                      <label className="block text-xs text-gray-500 mb-2">Community</label>
-                      <motion.button
-                        onClick={() => setShowCommunityDropdown(!showCommunityDropdown)}
-                        className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-left text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 flex items-center justify-between transition-all duration-200"
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                      >
-                        <span className={community ? "text-gray-900" : "text-gray-400"}>
-                          {community || "Community"}
-                        </span>
-                        <motion.div
-                          animate={{ rotate: showCommunityDropdown ? 180 : 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <ChevronDown size={18} className="text-gray-400 sm:w-5 sm:h-5" />
-                        </motion.div>
-                      </motion.button>
-
-                      {/* Community Dropdown Options */}
-                      <AnimatePresence>
-                        {showCommunityDropdown && (
-                          <motion.div 
-                            className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 sm:max-h-60 overflow-y-auto"
-                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            {getCommunityOptions(religion).map((option, index) => (
-                              <motion.button
-                                key={option}
-                                onClick={() => handleCommunitySelect(option)}
-                                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-left text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors duration-150"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.1, delay: index * 0.02 }}
-                                whileHover={{ backgroundColor: "#f9fafb" }}
-                              >
-                                {option}
-                              </motion.button>
-                            ))}
-                          </motion.div>
+                      <Autocomplete
+                        options={getCommunityOptions(religion)}
+                        value={community || null}
+                        onChange={(event, newValue) => handleCommunitySelect(newValue)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Community"
+                            variant="outlined"
+                            size="medium"
+                            sx={{
+                              '& .MuiOutlinedInput-root': {
+                                borderRadius: '8px',
+                                fontSize: '14px',
+                                padding: '4px 8px',
+                                '& .MuiOutlinedInput-input': {
+                                  padding: '12px 14px',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: '#00bcd5',
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: '#00bcd5',
+                                  borderWidth: '2px',
+                                },
+                              },
+                              '& .MuiInputLabel-root': {
+                                fontSize: '12px',
+                                color: '#9ca3af',
+                                '&.Mui-focused': {
+                                  color: '#00bcd5',
+                                },
+                              },
+                            }}
+                          />
                         )}
-                      </AnimatePresence>
+                      />
                     </div>
 
                     {/* Help Icon */}
-                    <motion.button 
-                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-400 hover:text-gray-600 mt-6 shrink-0 transition-colors duration-200"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                    <Tooltip 
+                      title="Please select the native language that best represents your family background."
+                      arrow
+                      placement="top"
+                      sx={{
+                        '& .MuiTooltip-tooltip': {
+                          backgroundColor: '#374151',
+                          color: 'white',
+                          fontSize: '12px',
+                          borderRadius: '8px',
+                          padding: '8px 12px',
+                          maxWidth: '250px',
+                        },
+                        '& .MuiTooltip-arrow': {
+                          color: '#374151',
+                        },
+                      }}
                     >
-                      <HelpCircle size={16} className="sm:w-5 sm:h-5" />
-                    </motion.button>
+                      <motion.button 
+                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-400 hover:text-gray-600 shrink-0 transition-colors duration-200"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <HelpCircle size={16} className="sm:w-5 sm:h-5" />
+                      </motion.button>
+                    </Tooltip>
                   </motion.div>
 
-                  {/* Country Section - Only show if community is selected */}
+                  {/* Living In Section - Show when community is selected */}
                   <AnimatePresence>
                     {community && (
                       <motion.div
@@ -638,65 +663,49 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.4 }}
                       >
-                        <motion.h3 
-                          className="text-lg sm:text-xl font-medium text-gray-800 mb-4 sm:mb-6"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                          Living in
-                        </motion.h3>
-
                         <motion.div 
-                          className="relative mb-6 sm:mb-8"
+                          className="relative mb-3 sm:mb-4"
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: 0.3 }}
                         >
-                          <label className="block text-xs text-teal-500 mb-2">Country</label>
-                          <motion.button
-                            onClick={() => setShowCountryDropdown(!showCountryDropdown)}
-                            className="w-full rounded-lg border-2 border-teal-500 px-3 sm:px-4 py-3 sm:py-4 text-left text-sm focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-200 flex items-center justify-between transition-all duration-200"
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
-                          >
-                            <span className={country ? "text-gray-900" : "text-gray-400"}>
-                              {country || "Country"}
-                            </span>
-                            <motion.div
-                              animate={{ rotate: showCountryDropdown ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ChevronDown size={18} className="text-gray-400 sm:w-5 sm:h-5" />
-                            </motion.div>
-                          </motion.button>
-
-                          {/* Country Dropdown Options */}
-                          <AnimatePresence>
-                            {showCountryDropdown && (
-                              <motion.div 
-                                className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 sm:max-h-60 overflow-y-auto"
-                                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                {countryOptions.map((option, index) => (
-                                  <motion.button
-                                    key={option}
-                                    onClick={() => handleCountrySelect(option)}
-                                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-left text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors duration-150"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.1, delay: index * 0.02 }}
-                                    whileHover={{ backgroundColor: "#f9fafb" }}
-                                  >
-                                    {option}
-                                  </motion.button>
-                                ))}
-                              </motion.div>
+                          <Autocomplete
+                            options={countryOptions}
+                            value={country || null}
+                            onChange={(event, newValue) => handleCountrySelect(newValue)}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                label="Country"
+                                variant="outlined"
+                                size="medium"
+                                sx={{
+                                  '& .MuiOutlinedInput-root': {
+                                    borderRadius: '8px',
+                                    fontSize: '14px',
+                                    padding: '4px 8px',
+                                    '& .MuiOutlinedInput-input': {
+                                      padding: '12px 14px',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                      borderColor: '#00bcd5',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                      borderColor: '#00bcd5',
+                                      borderWidth: '2px',
+                                    },
+                                  },
+                                  '& .MuiInputLabel-root': {
+                                    fontSize: '12px',
+                                    color: '#9ca3af',
+                                    '&.Mui-focused': {
+                                      color: '#00bcd5',
+                                    },
+                                  },
+                                }}
+                              />
                             )}
-                          </AnimatePresence>
+                          />
                         </motion.div>
                       </motion.div>
                     )}
@@ -707,7 +716,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
           </>
         )}
 
-        {step === 5 && (
+        {step === 4 && (
           <>
             <motion.div 
               className="text-center mb-6 sm:mb-8"
@@ -741,7 +750,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               <motion.h3 
-                className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4"
+                className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4 text-left"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.7 }}
@@ -753,7 +762,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email ID"
-                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-sm focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.8 }}
@@ -768,7 +777,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
               transition={{ duration: 0.5, delay: 0.9 }}
             >
               <motion.h3 
-                className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4"
+                className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4 text-left"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1.0 }}
@@ -787,7 +796,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 1.2 }}
                 >
-                  <select className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-3 sm:py-4 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200">
+                  <select className="w-full rounded-lg border border-gray-300 px-2 sm:px-3 py-3 sm:py-4 text-sm focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200">
                     <option value="+91">+91</option>
                     <option value="+1">+1</option>
                     <option value="+44">+44</option>
@@ -807,7 +816,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     placeholder="Mobile no."
-                    className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200 transition-all duration-200"
+                    className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-3 sm:py-4 text-sm focus:border-[#00bcd5] focus:outline-none focus:ring-2 focus:ring-cyan-200 transition-all duration-200"
                   />
                 </motion.div>
               </motion.div>
@@ -819,7 +828,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
               disabled={!canContinue}
               className={`w-full py-3 sm:py-4 rounded-full text-white font-medium transition-all mb-4 sm:mb-6 ${
                 canContinue
-                  ? "bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-500 hover:to-teal-600 shadow-lg"
+                  ? "bg-[#00bcd5] hover:bg-[#00acc1] shadow-lg"
                   : "bg-gray-300 cursor-not-allowed"
               }`}
               initial={{ opacity: 0, y: 20 }}
@@ -857,7 +866,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
           </>
         )}
 
-        {step === 6 && (
+        {step === 5 && (
           <>
             <motion.div 
               className="text-center"
@@ -921,7 +930,7 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
               >
                 <motion.button
                   onClick={handleContinue}
-                  className="w-full py-3 sm:py-4 rounded-full bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-500 hover:to-teal-600 text-white font-medium transition-all shadow-lg text-sm sm:text-base"
+                  className="w-full py-3 sm:py-4 rounded-full bg-[#00bcd5] hover:bg-[#00acc1] text-white font-medium transition-all shadow-lg text-sm sm:text-base"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 1.1 }}
@@ -979,28 +988,30 @@ const SignUpModal = ({ onBack, onClose }: SignUpModalProps) => {
           </>
         )}
 
-        {/* Continue Button - Only show for steps 1-4 */}
-        {step >= 1 && step <= 4 && (
-          <motion.button
-            onClick={handleContinue}
-            disabled={!canContinue}
-            className={`w-full py-3 sm:py-4 rounded-full text-white font-medium transition-all text-sm sm:text-base ${
-              canContinue
-                ? "bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-500 hover:to-teal-600 shadow-lg"
-                : "bg-gray-300 cursor-not-allowed"
-            }`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            whileHover={canContinue ? { scale: 1.02 } : {}}
-            whileTap={canContinue ? { scale: 0.98 } : {}}
-          >
-            Continue
-          </motion.button>
+        {/* Continue Button - Only show for steps 1-3 */}
+        {step >= 1 && step <= 3 && (
+          <div className="flex justify-center">
+            <motion.button
+              onClick={handleContinue}
+              disabled={!canContinue}
+              className={`px-8 sm:px-12 py-3 sm:py-4 rounded-full text-white font-medium transition-all text-sm sm:text-base ${
+                canContinue
+                  ? "bg-[#00bcd5] hover:bg-[#00acc1] shadow-lg"
+                  : "bg-gray-300 cursor-not-allowed"
+              }`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              whileHover={canContinue ? { scale: 1.02 } : {}}
+              whileTap={canContinue ? { scale: 0.98 } : {}}
+            >
+              Continue
+            </motion.button>
+          </div>
         )}
 
-        {/* Warning Message - Only show on steps 1 and 2 */}
-        {(step === 1 || step === 2) && (
+        {/* Warning Message - Only show on step 1 */}
+        {step === 1 && (
           <motion.div 
             className="mt-4 sm:mt-6 p-3 bg-orange-50 border border-orange-200 rounded-lg"
             initial={{ opacity: 0, y: 20 }}

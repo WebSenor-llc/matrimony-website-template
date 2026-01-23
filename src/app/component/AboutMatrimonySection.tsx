@@ -18,8 +18,8 @@ const AboutMatrimonySection = ({
   content = defaultContent,
 }: AboutMatrimonySectionProps) => {
   return (
-    <section className="rounded-t-2xl border bg-gray-100 px-4 sm:px-6 py-4 sm:py-6 text-gray-700 max-w-7xl mx-auto">
-      <div className="space-y-4 sm:space-y-5 text-sm sm:text-base leading-relaxed">
+    <section className=" rounded-t-2xl border bg-gray-100 px-4  py-4 sm:py-6 text-[#212126] max-w-6xl mx-auto">
+      <div className="space-y-4 sm:space-y-5 text-sm md:text-base leading-relaxed">
         {content.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
